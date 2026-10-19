@@ -1,9 +1,16 @@
 using Microsoft.EntityFrameworkCore;
-using Stoica_Darius_Lab2.Models; 
+using Stoica_Darius_Lab2.Models;
 
-public class Stoica_Darius_Lab2Context(DbContextOptions<Stoica_Darius_Lab2Context> options) : DbContext(options)
+public class Stoica_Darius_Lab2Context : DbContext
 {
-    public DbSet<Stoica_Darius_Lab2.Models.Book> Book { get; set; } = default!;
-    public DbSet<Stoica_Darius_Lab2.Models.Publisher> Publisher { get; set; } = default!;
-    public DbSet<Stoica_Darius_Lab2.Models.Author> Author { get; set; } = default!;
+    public Stoica_Darius_Lab2Context(DbContextOptions<Stoica_Darius_Lab2Context> options)
+        : base(options)
+    {
+    }
+
+    public DbSet<Book> Book { get; set; } = default!;
+    public DbSet<Publisher> Publisher { get; set; } = default!;
+    public DbSet<Author> Author { get; set; } = default!;
+    public DbSet<Category> Category { get; set; } = default!;
+    public DbSet<BookCategory> BookCategory { get; set; } = default!;
 }
