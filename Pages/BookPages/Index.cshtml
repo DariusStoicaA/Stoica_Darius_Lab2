@@ -1,4 +1,4 @@
-@page "/"
+@page
 @model Stoica_Darius_Lab2.Pages.BookPages.IndexModel
 
 @{
@@ -11,24 +11,39 @@
     <a asp-page="Create">Create New</a>
 </p>
 
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by Book Title / Author Name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Title)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.TitleSort">
+                    @Html.DisplayNameFor(model => model.BookD.Books.FirstOrDefault().Title)
+                </a>
             </th>
             <th>
-                Author Name
+                <a asp-page="./Index" asp-route-sortOrder="@Model.AuthorSort">
+                    Author Name
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].PublishingDate)
+                @Html.DisplayNameFor(model => model.BookD.Books.FirstOrDefault().PublishingDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Publisher.PublisherName)
+                @Html.DisplayNameFor(model => model.BookD.Books.FirstOrDefault().Publisher.PublisherName)
             </th>
             <th>
-            @Html.DisplayNameFor(model => model.Book[0].BookCategories)
-        </th>
+                @Html.DisplayNameFor(model => model.BookD.Books.FirstOrDefault().BookCategories)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -41,7 +56,6 @@
                 selectedRow = "table-success";
             }
             <tr class="@selectedRow">
-
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>

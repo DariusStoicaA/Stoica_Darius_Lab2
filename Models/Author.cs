@@ -12,7 +12,14 @@ namespace Stoica_Darius_Lab2.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        // Navigation property pentru relația cu cărțile
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
         public ICollection<Book>? Books { get; set; }
     }
 }
