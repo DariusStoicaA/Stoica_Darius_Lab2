@@ -5,6 +5,15 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Library</h1>
+    <p>Choose a section:</p>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-4"><a class="btn btn-outline-primary w-100" asp-page="/BookPages/Index">Books</a></div>
+    <div class="col-md-4"><a class="btn btn-outline-primary w-100" asp-page="/AuthorPages/Index">Authors</a></div>
+    <div class="col-md-4"><a class="btn btn-outline-primary w-100" asp-page="/PublisherPages/Index">Publishers</a></div>
+    <div class="col-md-4"><a class="btn btn-outline-primary w-100" asp-page="/CategoryPages/Index">Categories</a></div>
+    <div class="col-md-4"><a class="btn btn-outline-primary w-100" asp-page="/MemberPages/Index">Members</a></div>
+    <div class="col-md-4"><a class="btn btn-outline-primary w-100" asp-page="/BorrowingPages/Index">Borrowings</a></div>
 </div>

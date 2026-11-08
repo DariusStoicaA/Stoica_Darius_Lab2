@@ -1,30 +1,36 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Stoica_Darius_Lab2.Data;
+
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("Stoica_Darius_Lab2Context") ?? throw new InvalidOperationException("Connection string 'Stoica_Darius_Lab2Context' not found.");
 
-builder.Services.AddDbContext<Stoica_Darius_Lab2Context>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<Stoica_Darius_Lab2Context>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Stoica_Darius_Lab2Context") ?? throw new InvalidOperationException("Connection string 'Stoica_Darius_Lab2Context' not found.")));
 
-// Add services to the container.
+builder.Services.AddDbContext<Stoica_Darius_Lab2IdentityContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Stoica_Darius_Lab2IdentityContext") ?? throw new InvalidOperationException("Connection string 'Stoica_Darius_Lab2IdentityContext' not found.")));
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<Stoica_Darius_Lab2IdentityContext>();
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
-app.MapRazorPages()
-   .WithStaticAssets();
+app.MapRazorPages();
 
 app.Run();

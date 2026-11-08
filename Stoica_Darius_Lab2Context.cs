@@ -13,4 +13,8 @@ public class Stoica_Darius_Lab2Context : DbContext
     public DbSet<Author> Author { get; set; } = default!;
     public DbSet<Category> Category { get; set; } = default!;
     public DbSet<BookCategory> BookCategory { get; set; } = default!;
+
+    public DbSet<Member> Member { get; set; }
+
+    public DbSet<Stoica_Darius_Lab2.Models.Borrowing> Borrowing { get; set; } = default!;
 }
