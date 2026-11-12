@@ -11,9 +11,23 @@ builder.Services.AddDbContext<Stoica_Darius_Lab2IdentityContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Stoica_Darius_Lab2IdentityContext") ?? throw new InvalidOperationException("Connection string 'Stoica_Darius_Lab2IdentityContext' not found.")));
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<Stoica_Darius_Lab2IdentityContext>();
 
-builder.Services.AddRazorPages();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+});
+
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/BookPages");
+    options.Conventions.AllowAnonymousToPage("/BookPages/Index");
+    options.Conventions.AllowAnonymousToPage("/BookPages/Details");
+    options.Conventions.AuthorizeFolder("/MemberPages", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/PublisherPages", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/CategoryPages", "AdminPolicy");
+});
 
 var app = builder.Build();
 
